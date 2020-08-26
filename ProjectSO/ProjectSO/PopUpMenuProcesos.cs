@@ -10,23 +10,27 @@ using System.Windows.Forms;
 
 namespace ProjectSO
 {
-    public partial class MenuPrincipal : Form
+    public partial class PopUpMenuProcesos : Form
     {
-        public MenuPrincipal()
+
+       
+
+        public PopUpMenuProcesos()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void PopUpMenuProcesos_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnProcesarPorMetodo_Click(object sender, EventArgs e)
         {
-            using (VentanaAProcesos ventanaProcess = new VentanaAProcesos())
-                ventanaProcess.ShowDialog();
-            
+
+            //tengo que mandar el tipo de arrangement
+            this.Close();
+
         }
     }
 }

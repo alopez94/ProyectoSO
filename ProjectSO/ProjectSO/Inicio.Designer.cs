@@ -49,6 +49,13 @@
             this.btnEjecutarProcesos = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnEliminarProceso = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.QuantumText = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             Prioridad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -129,7 +136,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Berlin Sans FB", 16.25F);
-            this.label7.Location = new System.Drawing.Point(95, 401);
+            this.label7.Location = new System.Drawing.Point(111, 395);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(189, 24);
             this.label7.TabIndex = 7;
@@ -148,7 +155,7 @@
             // 
             this.BtnAddtoQueue.BackColor = System.Drawing.Color.SeaGreen;
             this.BtnAddtoQueue.ForeColor = System.Drawing.Color.White;
-            this.BtnAddtoQueue.Location = new System.Drawing.Point(267, 321);
+            this.BtnAddtoQueue.Location = new System.Drawing.Point(267, 330);
             this.BtnAddtoQueue.Name = "BtnAddtoQueue";
             this.BtnAddtoQueue.Size = new System.Drawing.Size(111, 31);
             this.BtnAddtoQueue.TabIndex = 10;
@@ -179,6 +186,7 @@
             this.Priority.Name = "Priority";
             this.Priority.Size = new System.Drawing.Size(67, 28);
             this.Priority.TabIndex = 13;
+            this.Priority.TextChanged += new System.EventHandler(this.Priority_TextChanged);
             // 
             // queueProcesosLista
             // 
@@ -219,12 +227,13 @@
             // 
             this.btnEjecutarProcesos.BackColor = System.Drawing.Color.SeaGreen;
             this.btnEjecutarProcesos.ForeColor = System.Drawing.Color.White;
-            this.btnEjecutarProcesos.Location = new System.Drawing.Point(173, 607);
+            this.btnEjecutarProcesos.Location = new System.Drawing.Point(737, 186);
             this.btnEjecutarProcesos.Name = "btnEjecutarProcesos";
             this.btnEjecutarProcesos.Size = new System.Drawing.Size(111, 31);
             this.btnEjecutarProcesos.TabIndex = 15;
             this.btnEjecutarProcesos.Text = "Ejecutar";
             this.btnEjecutarProcesos.UseVisualStyleBackColor = false;
+            this.btnEjecutarProcesos.Click += new System.EventHandler(this.btnEjecutarProcesos_Click);
             // 
             // errorProvider1
             // 
@@ -234,7 +243,7 @@
             // 
             this.btnEliminarProceso.BackColor = System.Drawing.Color.Red;
             this.btnEliminarProceso.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarProceso.Location = new System.Drawing.Point(312, 607);
+            this.btnEliminarProceso.Location = new System.Drawing.Point(233, 608);
             this.btnEliminarProceso.Name = "btnEliminarProceso";
             this.btnEliminarProceso.Size = new System.Drawing.Size(111, 31);
             this.btnEliminarProceso.TabIndex = 16;
@@ -242,12 +251,77 @@
             this.btnEliminarProceso.UseVisualStyleBackColor = false;
             this.btnEliminarProceso.Click += new System.EventHandler(this.btnEliminarProceso_Click);
             // 
+            // listView1
+            // 
+            this.listView1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listView1.ForeColor = System.Drawing.Color.Red;
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(570, 230);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(433, 360);
+            this.listView1.TabIndex = 17;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Uso CPU";
+            this.columnHeader1.Width = 83;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "En Ejecucion";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 93;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Listo";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader3.Width = 103;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Bloqueado";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader4.Width = 147;
+            // 
+            // QuantumText
+            // 
+            this.QuantumText.Location = new System.Drawing.Point(786, 133);
+            this.QuantumText.Name = "QuantumText";
+            this.QuantumText.Size = new System.Drawing.Size(121, 20);
+            this.QuantumText.TabIndex = 19;
+            this.QuantumText.TextChanged += new System.EventHandler(this.QuantumText_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Berlin Sans FB", 14.25F);
+            this.label9.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label9.Location = new System.Drawing.Point(646, 133);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(134, 21);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Quantum CPU:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // VentanaAProcesos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(629, 663);
+            this.ClientSize = new System.Drawing.Size(1046, 663);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.QuantumText);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnEliminarProceso);
             this.Controls.Add(this.btnEjecutarProcesos);
             this.Controls.Add(this.queueProcesosLista);
@@ -296,6 +370,13 @@
         private System.Windows.Forms.ColumnHeader CPU;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnEliminarProceso;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.TextBox QuantumText;
+        private System.Windows.Forms.Label label9;
     }
 }
 
