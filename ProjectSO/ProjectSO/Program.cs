@@ -16,7 +16,7 @@ namespace ProjectSO
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VentanaAProcesos());
+            Application.Run(new MenuPrincipal());
         }
     }
 }
