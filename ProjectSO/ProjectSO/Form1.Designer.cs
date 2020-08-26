@@ -1,4 +1,4 @@
-﻿namespace EjecucionProcesos1
+﻿namespace ProjectSO
 {
     partial class Form1
     {
@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(680, 425);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);

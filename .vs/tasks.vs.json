@@ -1,0 +1,30 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-ProyectoSO",
+      "appliesTo": "/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-Form1",
+      "appliesTo": "EjecucionProcesos1/Form1.cs",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-Form1",
+      "appliesTo": "EjecucionProcesos1/Form1.cs",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-Form1.Designer",
+      "appliesTo": "EjecucionProcesos1/Form1.Designer.cs",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-EjecucionProcesos1",
+      "appliesTo": "EjecucionProcesos1/EjecucionProcesos1.csproj",
+      "type": "msbuild"
+    }
+  ]
+}

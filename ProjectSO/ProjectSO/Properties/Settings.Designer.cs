@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EjecucionProcesos1.Properties
+namespace ProjectSO.Properties
 {
 
 
