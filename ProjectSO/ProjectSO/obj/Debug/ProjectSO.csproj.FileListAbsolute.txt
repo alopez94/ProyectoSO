@@ -2,9 +2,10 @@ C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\bin\Debug\Proj
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\bin\Debug\ProjectSO.exe
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\bin\Debug\ProjectSO.pdb
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.csprojAssemblyReference.cache
-C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.Inicio.resources
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.Properties.Resources.resources
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.csproj.GenerateResource.cache
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.csproj.CoreCompileInputs.cache
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.exe
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.pdb
+C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.VentanaAProcesos.resources
+C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.MenuPrincipal.resources

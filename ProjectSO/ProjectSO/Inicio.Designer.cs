@@ -1,6 +1,6 @@
 ﻿namespace ProjectSO
 {
-    partial class Inicio
+    partial class VentanaAProcesos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ColumnHeader Prioridad;
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -35,28 +36,34 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.LogoCeu = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.ProcessName = new System.Windows.Forms.TextBox();
             this.BtnAddtoQueue = new System.Windows.Forms.Button();
             this.ArriveTime = new System.Windows.Forms.TextBox();
             this.CPUTime = new System.Windows.Forms.TextBox();
             this.Priority = new System.Windows.Forms.TextBox();
             this.queueProcesosLista = new System.Windows.Forms.ListView();
-            this.btnEjecutarProcesos = new System.Windows.Forms.Button();
             this.NombreProceso = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TiempoLlegada = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CPU = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnEjecutarProcesos = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnEliminarProceso = new System.Windows.Forms.Button();
             Prioridad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            ((System.ComponentModel.ISupportInitialize)(this.LogoCeu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // Prioridad
+            // 
+            Prioridad.Text = "Prioridad";
+            Prioridad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            Prioridad.Width = 90;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Berlin Sans FB", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(229, 12);
+            this.label1.Location = new System.Drawing.Point(168, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(306, 30);
             this.label1.TabIndex = 0;
@@ -118,18 +125,6 @@
             this.label6.Text = "Prioridad:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // LogoCeu
-            // 
-            this.LogoCeu.BackColor = System.Drawing.Color.White;
-            this.LogoCeu.Image = global::ProjectSO.Properties.Resources.LOGOS_UNITEC_Y_CEUTEC_04;
-            this.LogoCeu.InitialImage = global::ProjectSO.Properties.Resources.LOGOS_UNITEC_Y_CEUTEC_04;
-            this.LogoCeu.Location = new System.Drawing.Point(44, 12);
-            this.LogoCeu.Name = "LogoCeu";
-            this.LogoCeu.Size = new System.Drawing.Size(146, 73);
-            this.LogoCeu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LogoCeu.TabIndex = 6;
-            this.LogoCeu.TabStop = false;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -140,16 +135,6 @@
             this.label7.TabIndex = 7;
             this.label7.Text = "Queue de Procesos:";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Berlin Sans FB", 13.25F);
-            this.label8.Location = new System.Drawing.Point(336, 42);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(78, 20);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Grupo #1";
-            // 
             // ProcessName
             // 
             this.ProcessName.Font = new System.Drawing.Font("Berlin Sans FB", 14.25F);
@@ -157,6 +142,7 @@
             this.ProcessName.Name = "ProcessName";
             this.ProcessName.Size = new System.Drawing.Size(153, 28);
             this.ProcessName.TabIndex = 9;
+            this.ProcessName.TextChanged += new System.EventHandler(this.ProcessName_TextChanged);
             // 
             // BtnAddtoQueue
             // 
@@ -212,17 +198,6 @@
             this.queueProcesosLista.View = System.Windows.Forms.View.Details;
             this.queueProcesosLista.SelectedIndexChanged += new System.EventHandler(this.queueProcesosLista_SelectedIndexChanged);
             // 
-            // btnEjecutarProcesos
-            // 
-            this.btnEjecutarProcesos.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnEjecutarProcesos.ForeColor = System.Drawing.Color.White;
-            this.btnEjecutarProcesos.Location = new System.Drawing.Point(244, 608);
-            this.btnEjecutarProcesos.Name = "btnEjecutarProcesos";
-            this.btnEjecutarProcesos.Size = new System.Drawing.Size(111, 31);
-            this.btnEjecutarProcesos.TabIndex = 15;
-            this.btnEjecutarProcesos.Text = "Ejecutar";
-            this.btnEjecutarProcesos.UseVisualStyleBackColor = false;
-            // 
             // NombreProceso
             // 
             this.NombreProceso.Text = "Nombre Proceso";
@@ -240,18 +215,40 @@
             this.CPU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.CPU.Width = 90;
             // 
-            // Prioridad
+            // btnEjecutarProcesos
             // 
-            Prioridad.Text = "Prioridad";
-            Prioridad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            Prioridad.Width = 90;
+            this.btnEjecutarProcesos.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnEjecutarProcesos.ForeColor = System.Drawing.Color.White;
+            this.btnEjecutarProcesos.Location = new System.Drawing.Point(173, 607);
+            this.btnEjecutarProcesos.Name = "btnEjecutarProcesos";
+            this.btnEjecutarProcesos.Size = new System.Drawing.Size(111, 31);
+            this.btnEjecutarProcesos.TabIndex = 15;
+            this.btnEjecutarProcesos.Text = "Ejecutar";
+            this.btnEjecutarProcesos.UseVisualStyleBackColor = false;
             // 
-            // Inicio
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // btnEliminarProceso
+            // 
+            this.btnEliminarProceso.BackColor = System.Drawing.Color.Red;
+            this.btnEliminarProceso.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarProceso.Location = new System.Drawing.Point(312, 607);
+            this.btnEliminarProceso.Name = "btnEliminarProceso";
+            this.btnEliminarProceso.Size = new System.Drawing.Size(111, 31);
+            this.btnEliminarProceso.TabIndex = 16;
+            this.btnEliminarProceso.Text = "Eliminar";
+            this.btnEliminarProceso.UseVisualStyleBackColor = false;
+            this.btnEliminarProceso.Click += new System.EventHandler(this.btnEliminarProceso_Click);
+            // 
+            // VentanaAProcesos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(629, 663);
+            this.Controls.Add(this.btnEliminarProceso);
             this.Controls.Add(this.btnEjecutarProcesos);
             this.Controls.Add(this.queueProcesosLista);
             this.Controls.Add(this.Priority);
@@ -259,9 +256,7 @@
             this.Controls.Add(this.ArriveTime);
             this.Controls.Add(this.BtnAddtoQueue);
             this.Controls.Add(this.ProcessName);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.LogoCeu);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -270,10 +265,11 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "Inicio";
+            this.Name = "VentanaAProcesos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Proyecto SO";
-            ((System.ComponentModel.ISupportInitialize)(this.LogoCeu)).EndInit();
+            this.Load += new System.EventHandler(this.Inicio_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,9 +283,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.PictureBox LogoCeu;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox ProcessName;
         private System.Windows.Forms.Button BtnAddtoQueue;
         private System.Windows.Forms.TextBox ArriveTime;
@@ -300,6 +294,8 @@
         private System.Windows.Forms.ColumnHeader NombreProceso;
         private System.Windows.Forms.ColumnHeader TiempoLlegada;
         private System.Windows.Forms.ColumnHeader CPU;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button btnEliminarProceso;
     }
 }
 
