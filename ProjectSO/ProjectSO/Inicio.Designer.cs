@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ColumnHeader Prioridad;
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,35 +41,29 @@
             this.ArriveTime = new System.Windows.Forms.TextBox();
             this.CPUTime = new System.Windows.Forms.TextBox();
             this.Priority = new System.Windows.Forms.TextBox();
-            this.queueProcesosLista = new System.Windows.Forms.ListView();
-            this.NombreProceso = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.TiempoLlegada = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CPU = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnEjecutarProcesos = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnEliminarProceso = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.QuantumText = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            Prioridad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtQuantum = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dgvListadoProcesos1 = new System.Windows.Forms.DataGridView();
+            this.dgvListadoEjecucion = new System.Windows.Forms.DataGridView();
+            this.CPU1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ejecucio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Listo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Bloqueo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListadoProcesos1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListadoEjecucion)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Prioridad
-            // 
-            Prioridad.Text = "Prioridad";
-            Prioridad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            Prioridad.Width = 90;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Berlin Sans FB", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(168, 57);
+            this.label1.Location = new System.Drawing.Point(110, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(306, 30);
             this.label1.TabIndex = 0;
@@ -80,7 +73,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Berlin Sans FB", 16.25F);
-            this.label2.Location = new System.Drawing.Point(240, 98);
+            this.label2.Location = new System.Drawing.Point(192, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 24);
             this.label2.TabIndex = 1;
@@ -136,7 +129,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Berlin Sans FB", 16.25F);
-            this.label7.Location = new System.Drawing.Point(111, 395);
+            this.label7.Location = new System.Drawing.Point(12, 380);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(189, 24);
             this.label7.TabIndex = 7;
@@ -170,6 +163,7 @@
             this.ArriveTime.Name = "ArriveTime";
             this.ArriveTime.Size = new System.Drawing.Size(67, 28);
             this.ArriveTime.TabIndex = 11;
+            this.ArriveTime.TextChanged += new System.EventHandler(this.ArriveTime_TextChanged);
             // 
             // CPUTime
             // 
@@ -188,46 +182,11 @@
             this.Priority.TabIndex = 13;
             this.Priority.TextChanged += new System.EventHandler(this.Priority_TextChanged);
             // 
-            // queueProcesosLista
-            // 
-            this.queueProcesosLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.NombreProceso,
-            this.TiempoLlegada,
-            this.CPU,
-            Prioridad});
-            this.queueProcesosLista.FullRowSelect = true;
-            this.queueProcesosLista.GridLines = true;
-            this.queueProcesosLista.HideSelection = false;
-            this.queueProcesosLista.Location = new System.Drawing.Point(115, 437);
-            this.queueProcesosLista.Name = "queueProcesosLista";
-            this.queueProcesosLista.Size = new System.Drawing.Size(369, 153);
-            this.queueProcesosLista.TabIndex = 14;
-            this.queueProcesosLista.UseCompatibleStateImageBehavior = false;
-            this.queueProcesosLista.View = System.Windows.Forms.View.Details;
-            this.queueProcesosLista.SelectedIndexChanged += new System.EventHandler(this.queueProcesosLista_SelectedIndexChanged);
-            // 
-            // NombreProceso
-            // 
-            this.NombreProceso.Text = "Nombre Proceso";
-            this.NombreProceso.Width = 92;
-            // 
-            // TiempoLlegada
-            // 
-            this.TiempoLlegada.Text = "Tiempo Llegada";
-            this.TiempoLlegada.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TiempoLlegada.Width = 90;
-            // 
-            // CPU
-            // 
-            this.CPU.Text = "Tiempo CPU";
-            this.CPU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.CPU.Width = 90;
-            // 
             // btnEjecutarProcesos
             // 
             this.btnEjecutarProcesos.BackColor = System.Drawing.Color.SeaGreen;
             this.btnEjecutarProcesos.ForeColor = System.Drawing.Color.White;
-            this.btnEjecutarProcesos.Location = new System.Drawing.Point(737, 186);
+            this.btnEjecutarProcesos.Location = new System.Drawing.Point(828, 188);
             this.btnEjecutarProcesos.Name = "btnEjecutarProcesos";
             this.btnEjecutarProcesos.Size = new System.Drawing.Size(111, 31);
             this.btnEjecutarProcesos.TabIndex = 15;
@@ -249,82 +208,111 @@
             this.btnEliminarProceso.TabIndex = 16;
             this.btnEliminarProceso.Text = "Eliminar";
             this.btnEliminarProceso.UseVisualStyleBackColor = false;
-            this.btnEliminarProceso.Click += new System.EventHandler(this.btnEliminarProceso_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listView1.ForeColor = System.Drawing.Color.Red;
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(570, 230);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(433, 360);
-            this.listView1.TabIndex = 17;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Uso CPU";
-            this.columnHeader1.Width = 83;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "En Ejecucion";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 93;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Listo";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 103;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Bloqueado";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 147;
-            // 
-            // QuantumText
-            // 
-            this.QuantumText.Location = new System.Drawing.Point(786, 133);
-            this.QuantumText.Name = "QuantumText";
-            this.QuantumText.Size = new System.Drawing.Size(121, 20);
-            this.QuantumText.TabIndex = 19;
-            this.QuantumText.TextChanged += new System.EventHandler(this.QuantumText_TextChanged);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Berlin Sans FB", 14.25F);
             this.label9.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label9.Location = new System.Drawing.Point(646, 133);
+            this.label9.Location = new System.Drawing.Point(679, 133);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(134, 21);
             this.label9.TabIndex = 21;
             this.label9.Text = "Quantum CPU:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // txtQuantum
+            // 
+            this.txtQuantum.Font = new System.Drawing.Font("Berlin Sans FB", 14.25F);
+            this.txtQuantum.Location = new System.Drawing.Point(819, 126);
+            this.txtQuantum.Name = "txtQuantum";
+            this.txtQuantum.Size = new System.Drawing.Size(153, 28);
+            this.txtQuantum.TabIndex = 22;
+            this.txtQuantum.UseWaitCursor = true;
+            this.txtQuantum.TextChanged += new System.EventHandler(this.txtQuantum_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Berlin Sans FB", 14.25F);
+            this.label8.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label8.Location = new System.Drawing.Point(628, 98);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(185, 21);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Metodo de Ejecucion: ";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Por Tiempo de Llegada",
+            "Por Tiempo de CPU",
+            "Por Prioridad",
+            "Por CPU/Tiempo Llegada"});
+            this.comboBox1.Location = new System.Drawing.Point(819, 98);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(153, 21);
+            this.comboBox1.TabIndex = 24;
+            // 
+            // dgvListadoProcesos1
+            // 
+            this.dgvListadoProcesos1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListadoProcesos1.Location = new System.Drawing.Point(12, 419);
+            this.dgvListadoProcesos1.Name = "dgvListadoProcesos1";
+            this.dgvListadoProcesos1.Size = new System.Drawing.Size(543, 162);
+            this.dgvListadoProcesos1.TabIndex = 25;
+            this.dgvListadoProcesos1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvListadoProcesos1_UserDeletingRow);
+            // 
+            // dgvListadoEjecucion
+            // 
+            this.dgvListadoEjecucion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListadoEjecucion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CPU1,
+            this.Ejecucio,
+            this.Listo,
+            this.Bloqueo});
+            this.dgvListadoEjecucion.Location = new System.Drawing.Point(638, 236);
+            this.dgvListadoEjecucion.Name = "dgvListadoEjecucion";
+            this.dgvListadoEjecucion.Size = new System.Drawing.Size(445, 345);
+            this.dgvListadoEjecucion.TabIndex = 26;
+            this.dgvListadoEjecucion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // CPU1
+            // 
+            this.CPU1.HeaderText = "CPU Time";
+            this.CPU1.Name = "CPU1";
+            // 
+            // Ejecucio
+            // 
+            this.Ejecucio.HeaderText = "En Ejecucion";
+            this.Ejecucio.Name = "Ejecucio";
+            // 
+            // Listo
+            // 
+            this.Listo.HeaderText = "Listo";
+            this.Listo.Name = "Listo";
+            // 
+            // Bloqueo
+            // 
+            this.Bloqueo.HeaderText = "Bloqueo";
+            this.Bloqueo.Name = "Bloqueo";
+            // 
             // VentanaAProcesos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1046, 663);
+            this.ClientSize = new System.Drawing.Size(1116, 663);
+            this.Controls.Add(this.dgvListadoEjecucion);
+            this.Controls.Add(this.dgvListadoProcesos1);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtQuantum);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.QuantumText);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnEliminarProceso);
             this.Controls.Add(this.btnEjecutarProcesos);
-            this.Controls.Add(this.queueProcesosLista);
             this.Controls.Add(this.Priority);
             this.Controls.Add(this.CPUTime);
             this.Controls.Add(this.ArriveTime);
@@ -344,6 +332,8 @@
             this.Text = "Proyecto SO";
             this.Load += new System.EventHandler(this.Inicio_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListadoProcesos1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListadoEjecucion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,20 +353,20 @@
         private System.Windows.Forms.TextBox ArriveTime;
         private System.Windows.Forms.TextBox CPUTime;
         private System.Windows.Forms.TextBox Priority;
-        private System.Windows.Forms.ListView queueProcesosLista;
         private System.Windows.Forms.Button btnEjecutarProcesos;
-        private System.Windows.Forms.ColumnHeader NombreProceso;
-        private System.Windows.Forms.ColumnHeader TiempoLlegada;
-        private System.Windows.Forms.ColumnHeader CPU;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnEliminarProceso;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.TextBox QuantumText;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtQuantum;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridView dgvListadoEjecucion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CPU1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ejecucio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Listo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Bloqueo;
+        private System.Windows.Forms.DataGridView dgvListadoProcesos1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NombreProcess;
     }
 }
 

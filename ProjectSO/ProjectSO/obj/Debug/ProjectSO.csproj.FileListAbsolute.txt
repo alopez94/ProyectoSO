@@ -9,4 +9,3 @@ C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\Proj
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.pdb
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.VentanaAProcesos.resources
 C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.MenuPrincipal.resources
-C:\Users\Unforgiven15\source\repos\ProyectoSO\ProjectSO\ProjectSO\obj\Debug\ProjectSO.PopUpMenuProcesos.resources
