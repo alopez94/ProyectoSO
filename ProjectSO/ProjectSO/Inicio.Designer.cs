@@ -47,13 +47,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtQuantum = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txtAlgoritmoSelect = new System.Windows.Forms.ComboBox();
             this.dgvListadoProcesos1 = new System.Windows.Forms.DataGridView();
             this.dgvListadoEjecucion = new System.Windows.Forms.DataGridView();
-            this.CPU1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ejecucio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Listo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Bloqueo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListadoProcesos1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListadoEjecucion)).BeginInit();
@@ -228,6 +224,7 @@
             this.txtQuantum.Name = "txtQuantum";
             this.txtQuantum.Size = new System.Drawing.Size(153, 28);
             this.txtQuantum.TabIndex = 22;
+            this.txtQuantum.Text = "5";
             this.txtQuantum.UseWaitCursor = true;
             this.txtQuantum.TextChanged += new System.EventHandler(this.txtQuantum_TextChanged);
             // 
@@ -243,18 +240,16 @@
             this.label8.Text = "Metodo de Ejecucion: ";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // comboBox1
+            // txtAlgoritmoSelect
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Por Tiempo de Llegada",
-            "Por Tiempo de CPU",
-            "Por Prioridad",
-            "Por CPU/Tiempo Llegada"});
-            this.comboBox1.Location = new System.Drawing.Point(819, 98);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(153, 21);
-            this.comboBox1.TabIndex = 24;
+            this.txtAlgoritmoSelect.FormattingEnabled = true;
+            this.txtAlgoritmoSelect.Items.AddRange(new object[] {
+            "Prioridad",
+            "CPU"});
+            this.txtAlgoritmoSelect.Location = new System.Drawing.Point(819, 98);
+            this.txtAlgoritmoSelect.Name = "txtAlgoritmoSelect";
+            this.txtAlgoritmoSelect.Size = new System.Drawing.Size(153, 21);
+            this.txtAlgoritmoSelect.TabIndex = 24;
             // 
             // dgvListadoProcesos1
             // 
@@ -263,51 +258,25 @@
             this.dgvListadoProcesos1.Name = "dgvListadoProcesos1";
             this.dgvListadoProcesos1.Size = new System.Drawing.Size(543, 162);
             this.dgvListadoProcesos1.TabIndex = 25;
-            this.dgvListadoProcesos1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvListadoProcesos1_UserDeletingRow);
             // 
             // dgvListadoEjecucion
             // 
             this.dgvListadoEjecucion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListadoEjecucion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CPU1,
-            this.Ejecucio,
-            this.Listo,
-            this.Bloqueo});
             this.dgvListadoEjecucion.Location = new System.Drawing.Point(638, 236);
             this.dgvListadoEjecucion.Name = "dgvListadoEjecucion";
-            this.dgvListadoEjecucion.Size = new System.Drawing.Size(445, 345);
+            this.dgvListadoEjecucion.Size = new System.Drawing.Size(556, 345);
             this.dgvListadoEjecucion.TabIndex = 26;
             this.dgvListadoEjecucion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // CPU1
-            // 
-            this.CPU1.HeaderText = "CPU Time";
-            this.CPU1.Name = "CPU1";
-            // 
-            // Ejecucio
-            // 
-            this.Ejecucio.HeaderText = "En Ejecucion";
-            this.Ejecucio.Name = "Ejecucio";
-            // 
-            // Listo
-            // 
-            this.Listo.HeaderText = "Listo";
-            this.Listo.Name = "Listo";
-            // 
-            // Bloqueo
-            // 
-            this.Bloqueo.HeaderText = "Bloqueo";
-            this.Bloqueo.Name = "Bloqueo";
             // 
             // VentanaAProcesos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1116, 663);
+            this.ClientSize = new System.Drawing.Size(1206, 663);
             this.Controls.Add(this.dgvListadoEjecucion);
             this.Controls.Add(this.dgvListadoProcesos1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.txtAlgoritmoSelect);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtQuantum);
             this.Controls.Add(this.label9);
@@ -358,13 +327,9 @@
         private System.Windows.Forms.Button btnEliminarProceso;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtQuantum;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox txtAlgoritmoSelect;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dgvListadoEjecucion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CPU1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ejecucio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Listo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Bloqueo;
         private System.Windows.Forms.DataGridView dgvListadoProcesos1;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreProcess;
     }

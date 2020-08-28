@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Dynamic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -29,6 +21,10 @@ namespace ProjectSO
 
 
         }
+
+
+
+
 
         public class process
         {
@@ -75,22 +71,34 @@ namespace ProjectSO
         }
 
         public BindingSource bindingsrs = new BindingSource(); // https://www.codeproject.com/Questions/734276/how-to-add-data-dynamically-to-Gridview
+        public BindingSource bindingsrs2 = new BindingSource();
         List<process> ProcesosLista1 = new List<process>();
+        List<process> Active = new List<process>();
         public int prioridadActual;
         public int TiempoCPUActual;
+        
+        public int tiempoCPUTotalProcesos = 1;
 
         public void agregarProcesoLista()
         {
-            process lista1 = new process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Agregado",
+            Console.Write("Llego Hasta aqui xD");
+
+
+            process lista1 = new process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
             Convert.ToInt32(CPUTime.Text));
             bindingsrs.Add(lista1);
+            bindingsrs2.Add(lista1);
             ProcesosLista1.Add(lista1);
+            
 
 
             ProcessName.Clear();
             ArriveTime.Clear();
             CPUTime.Clear();
             Priority.Clear();
+
+            Console.Write("Llego Hasta aqui xD");
+
         }
 
         public void AddtoQueue_Click(object sender, EventArgs e)
@@ -107,10 +115,11 @@ namespace ProjectSO
 
         private void Inicio_Load(object sender, EventArgs e)
         {
+            dgvListadoEjecucion.DataSource = bindingsrs2;
             dgvListadoProcesos1.DataSource = bindingsrs;
             BtnAddtoQueue.Enabled = false;
             btnEjecutarProcesos.Enabled = false;
-
+            Console.Write("Llego Hasta aqui xD");
         }
 
         private void controlInputsInicio()
@@ -141,10 +150,11 @@ namespace ProjectSO
 
 
         }
+        //funciones de condicion para evaluar estados
+        private bool samepriority(process a)
+        {
 
-        private bool samepriority(process a){
-
-            if(a.priority == prioridadActual && a.estado == "Activo" && a.remainingT > 0)
+            if (a.priority == prioridadActual && a.estado == "Activo" && a.remainingT > 0)
             {
                 return true;
             }
@@ -153,11 +163,11 @@ namespace ProjectSO
                 return false;
             }
 
-         }
+        }
 
         private bool sameCPUTime(process a)
         {
-            if(a.CPUt == TiempoCPUActual && a.estado == "Listo" && a.remainingT > 0)
+            if (a.CPUt == TiempoCPUActual && a.estado == "Listo" && a.remainingT > 0)
             {
                 return true;
             }
@@ -166,16 +176,45 @@ namespace ProjectSO
                 return false;
             }
 
+        }
+
+        private bool ActivosAun(process a)
+        {
+            if (a.remainingT > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private int PrioridadMasAlta()
         {
+            int indice = 0;
+            string ProcesoActual = "";
+            int MayorPrioridad = 1000000;
 
+            Active.ForEach(x =>
+            {
 
+                if (x.priority < MayorPrioridad && x.estado == "Listo")
+                {
+                    ProcesoActual = x.nombreProceso;
+                    MayorPrioridad = x.priority;
+                }
 
-            return 0;
+            });
+
+            indice = Active.FindIndex(i => i.nombreProceso == ProcesoActual);
+            return indice;
 
         }
+
+        //Hola Diosito, soy yo de nuevo
+
+
 
         private void ProcessName_TextChanged(object sender, EventArgs e)
         {
@@ -188,42 +227,134 @@ namespace ProjectSO
         }
 
 
-
-        private void queueProcesosEmpty()
+        private bool ProcesosActivos(process a)
         {
-          
-           
-            
-        }
-
-        
-
-       
-
-       
-           public void OrdenarPorPrioridad(List<process> a)
-        {
-           
-
-            
-
+            if (a.CPUt > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
- 
-        private void OrdernarPorArriveTime()
+
+        private bool queueProcesosEmpty()
         {
+            if (bindingsrs.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
 
-        private void OrdernarPorCPUTime()
+        private void execute()
         {
+            string algoritmoSeleccionado = txtAlgoritmoSelect.Text;
+            int cont = 0;
+            int index = 0;
+
+            if (algoritmoSeleccionado == "Prioridad")
+            {
+                Active = ProcesosLista1.FindAll(ActivosAun);
+                while (tiempoCPUTotalProcesos > 0)
+                {
+
+                    Console.WriteLine(cont + ". ------ Interacion ------");
+                    cont++;
+
+                    Active = ProcesosLista1.FindAll(ActivosAun);
+
+                    Active.ForEach(process =>
+                    {
+                        Console.WriteLine("Ejecutando Algoritmo de Prioridad");
+                        index = PrioridadMasAlta();
+                        prioridadActual = Active[index].priority;
+
+                        if (Active[index].remainingT <= Convert.ToInt32(txtQuantum.Text))
+                        {
+                            Active[index].remainingT = 0;
+                        }
+                        else
+                        {
+                            Active[index].remainingT = Active[index].remainingT - Convert.ToInt32(txtQuantum.Text);
+                        }
+
+                        if (Active[index].remainingT == 0)
+                        {
+                            Active[index].estado = "Finalizado";
+                        }
+                        else
+                        {
+                            Active[index].estado = "Bloqueado";
+                        }
+
+                        Console.WriteLine("  - Proceso: " + Active[index].nombreProceso + ", CPU: " + Active[index].remainingT + ", " + Active[index].estado);
+
+                        pasaryActualizar(Active[index]);
+                        tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
+
+                    });
+
+
+                    Active.ForEach(proc =>
+                    {
+                        if (proc.remainingT == 0)
+                        {
+                            proc.estado = "Finalizado";
+
+                        }
+                        else if (proc.remainingT > 0)
+                        {
+                            proc.estado = "Listo";
+                            pasaryActualizar(proc);
+                        }
+                    });
+                }
+
+
+            }
+            if (algoritmoSeleccionado == "Por Tiempo de CPU")
+            {
+
+
+            }
 
         }
+
+
+        private void pasaryActualizar(process a)
+        {
+            int indice = -1;
+
+            DataGridViewRow fila = dgvListadoEjecucion.Rows
+                .Cast<DataGridViewRow>()
+                .Where(proc => proc.Cells["nombreProceso"].Value.ToString().Equals(a.nombreProceso))
+                .First();
+            indice = fila.Index;
+            process obj = (process)dgvListadoEjecucion.Rows[indice].DataBoundItem;
+            obj.remainingT = a.remainingT;
+            obj.estado = a.estado;
+            dgvListadoEjecucion.Refresh();
+
+        }
+
+
+
+
+
+
+
 
         private void btnEjecutarProcesos_Click(object sender, EventArgs e)
         {
-            OrdenarPorPrioridad(ProcesosLista1);
+            execute();
 
 
 
@@ -232,7 +363,15 @@ namespace ProjectSO
 
         private void txtQuantum_TextChanged(object sender, EventArgs e)
         {
-            queueProcesosEmpty();
+            if (txtQuantum.Text != string.Empty && txtQuantum.Text.All(char.IsNumber))
+            {
+                btnEjecutarProcesos.Enabled = true;
+            }
+            else
+            {
+                btnEjecutarProcesos.Enabled = false;
+            }
+
         }
 
         private void ArriveTime_TextChanged(object sender, EventArgs e)
