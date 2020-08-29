@@ -74,6 +74,8 @@ namespace ProjectSO
         public BindingSource bindingsrs2 = new BindingSource();
         List<process> ProcesosLista1 = new List<process>();
         List<process> Active = new List<process>();
+        List<process> samepriority = new List<process>();
+        List<process> sameCPUTime = new List<process>();
         public int prioridadActual;
         public int TiempoCPUActual;
         
@@ -81,7 +83,7 @@ namespace ProjectSO
 
         public void agregarProcesoLista()
         {
-            Console.Write("Llego Hasta aqui xD");
+           
 
 
             process lista1 = new process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
@@ -97,7 +99,7 @@ namespace ProjectSO
             CPUTime.Clear();
             Priority.Clear();
 
-            Console.Write("Llego Hasta aqui xD");
+      
 
         }
 
@@ -119,7 +121,7 @@ namespace ProjectSO
             dgvListadoProcesos1.DataSource = bindingsrs;
             BtnAddtoQueue.Enabled = false;
             btnEjecutarProcesos.Enabled = false;
-            Console.Write("Llego Hasta aqui xD");
+     
         }
 
         private void controlInputsInicio()
@@ -151,7 +153,7 @@ namespace ProjectSO
 
         }
         //funciones de condicion para evaluar estados
-        private bool samepriority(process a)
+        private bool priorityigual(process a)
         {
 
             if (a.priority == prioridadActual && a.estado == "Activo" && a.remainingT > 0)
@@ -165,7 +167,7 @@ namespace ProjectSO
 
         }
 
-        private bool sameCPUTime(process a)
+        private bool CPUTimeigual(process a)
         {
             if (a.CPUt == TiempoCPUActual && a.estado == "Listo" && a.remainingT > 0)
             {
@@ -212,7 +214,51 @@ namespace ProjectSO
 
         }
 
-        //Hola Diosito, soy yo de nuevo
+        private int CPUTimemasbajo()
+        {
+            int indice = 0;
+            string ProcesoActual = "";
+            int CPUTimeAlta = 9000000;
+
+            Active.ForEach(x =>
+            {
+                if(x.CPUt< CPUTimeAlta && x.estado == "Listo")
+                {
+                    ProcesoActual = x.nombreProceso;
+                    CPUTimeAlta = x.CPUt;
+                }
+
+            });
+
+            indice = Active.FindIndex(i => i.nombreProceso == ProcesoActual);
+            return indice;
+
+        }
+
+
+        private int llegada()
+        {
+            int indice = 0;
+            string ProcesoActual = "";
+            int CPUTimeAlta = 9000000;
+
+            Active.ForEach(x =>
+            {
+                if (x.CPUt < CPUTimeAlta && x.estado == "Listo")
+                {
+                    ProcesoActual = x.nombreProceso;
+                    CPUTimeAlta = x.CPUt;
+                }
+
+            });
+
+            indice = Active.FindIndex(i => i.nombreProceso == ProcesoActual);
+            return indice;
+
+        }
+
+
+
 
 
 
@@ -227,38 +273,42 @@ namespace ProjectSO
         }
 
 
-        private bool ProcesosActivos(process a)
+      
+
+        private void resetmainingTime()
         {
-            if (a.CPUt > 0)
+
+            //pendiente
+            ProcesosLista1.ForEach(a =>
             {
-                return true;
-            }
-            else
+                a.remainingT = a.CPUt;
+                a.estado = "Listo";
+
+
+             });
+
+            Active = ProcesosLista1.FindAll(ActivosAun);
+
+            Active.ForEach(x =>
             {
-                return false;
-            }
+                bindingsrs.Add(x);
+                bindingsrs2.Add(x);
+
+            });
+
         }
 
 
 
-        private bool queueProcesosEmpty()
-        {
-            if (bindingsrs.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
+       
 
         private void execute()
         {
             string algoritmoSeleccionado = txtAlgoritmoSelect.Text;
-            int cont = 0;
+
             int index = 0;
+
+            Active = ProcesosLista1.FindAll(ActivosAun);
 
             if (algoritmoSeleccionado == "Prioridad")
             {
@@ -266,40 +316,52 @@ namespace ProjectSO
                 while (tiempoCPUTotalProcesos > 0)
                 {
 
-                    Console.WriteLine(cont + ". ------ Interacion ------");
-                    cont++;
+
 
                     Active = ProcesosLista1.FindAll(ActivosAun);
 
                     Active.ForEach(process =>
                     {
-                        Console.WriteLine("Ejecutando Algoritmo de Prioridad");
+                        Console.Write("Llego Hasta aqui xD");
+
+                       
+                       
                         index = PrioridadMasAlta();
                         prioridadActual = Active[index].priority;
+                        samepriority = Active.FindAll(priorityigual);
 
-                        if (Active[index].remainingT <= Convert.ToInt32(txtQuantum.Text))
+                        if (samepriority.Count > 1)
                         {
-                            Active[index].remainingT = 0;
+                            index = llegada();
                         }
-                        else
-                        {
-                            Active[index].remainingT = Active[index].remainingT - Convert.ToInt32(txtQuantum.Text);
-                        }
+                        
 
-                        if (Active[index].remainingT == 0)
-                        {
-                            Active[index].estado = "Finalizado";
-                        }
-                        else
-                        {
-                            Active[index].estado = "Bloqueado";
-                        }
+                                        if (Active[index].remainingT <= Convert.ToInt32(txtQuantum.Text))
+                                        {
+                                            Active[index].remainingT = 0;
+                                        }
+                                        else
+                                        {
+                                            Active[index].remainingT = Active[index].remainingT - Convert.ToInt32(txtQuantum.Text);
+                                        }
 
-                        Console.WriteLine("  - Proceso: " + Active[index].nombreProceso + ", CPU: " + Active[index].remainingT + ", " + Active[index].estado);
+                                        if (Active[index].remainingT == 0)
+                                        {
+                                            Active[index].estado = "Finalizado";
+                                        }
+                                        else
+                                        {
+                                            Active[index].estado = "Bloqueado";
+                                        }
 
-                        pasaryActualizar(Active[index]);
-                        tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
+                                      
 
+                                       pasaryActualizar(Active[index]);
+                                        tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
+                                       
+                        wait(3000);
+
+                        
                     });
 
 
@@ -314,20 +376,79 @@ namespace ProjectSO
                         {
                             proc.estado = "Listo";
                             pasaryActualizar(proc);
+                            wait(3000);
                         }
                     });
                 }
 
 
             }
-            if (algoritmoSeleccionado == "Por Tiempo de CPU")
+
+            if (algoritmoSeleccionado == "CPU")
             {
+                Active = ProcesosLista1.FindAll(ActivosAun);
+
+                while (tiempoCPUTotalProcesos > 0)
+                {
+                    Active = ProcesosLista1.FindAll(ActivosAun);
+
+                    Active.ForEach(process =>
+                    {
+                        index = CPUTimemasbajo();
+                        TiempoCPUActual = Active[index].CPUt;
+                        sameCPUTime = Active.FindAll(CPUTimeigual);
+
+                        if(sameCPUTime.Count > 0)
+                        {
+                            index = PrioridadMasAlta();
+                        }
+
+                                     if (Active[index].remainingT < Convert.ToInt32(txtQuantum.Text))
+                                    {
+
+                                        Active[index].remainingT = 0;
+
+                                    }
+                                    else
+                                    {
+
+                                        Active[index].remainingT = Active[index].remainingT - Convert.ToInt32(txtQuantum.Text);
+
+                                    }
+
+                                    if (Active[index].remainingT == 0)
+                                    {
+                                        Active[index].estado = "Finalizado";
+                                    }
+                                    else
+                                    {
+                                        Active[index].estado = "Bloqueado";
+                                    }
+
+                                    pasaryActualizar(Active[index]);
+                                    tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
+                                    wait(3000);
+                    });
+
+                    Active.ForEach(proc =>
+                    {
+                        if (proc.remainingT == 0)
+                        {
+                            proc.estado = "Finalizado";
+
+                        }
+                        else if (proc.remainingT > 0)
+                        {
+                            proc.estado = "Listo";
+                            pasaryActualizar(proc);
+                            wait(3000);
+                        }
+                    });
 
 
+                }
             }
-
         }
-
 
         private void pasaryActualizar(process a)
         {
@@ -384,6 +505,29 @@ namespace ProjectSO
 
         }
 
+
+        public void wait(int milliseconds)
+        {
+            var timer1 = new System.Windows.Forms.Timer();
+
+            if (milliseconds == 0 || milliseconds < 0) return;
+
+            timer1.Interval = milliseconds;
+            timer1.Enabled = true;
+            timer1.Start();
+
+            timer1.Tick += (s, e) =>
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+
+            };
+            while (timer1.Enabled)
+            {
+                Application.DoEvents();
+            }
+        }
+
         private void dgvListadoProcesos1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
 
@@ -396,6 +540,11 @@ namespace ProjectSO
                 // Cancel the deletion if the Starting Balance row is included.
                 e.Cancel = true;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            resetmainingTime();
         }
     }
 

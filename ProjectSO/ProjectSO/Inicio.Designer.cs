@@ -43,7 +43,6 @@
             this.Priority = new System.Windows.Forms.TextBox();
             this.btnEjecutarProcesos = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnEliminarProceso = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtQuantum = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -194,17 +193,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // btnEliminarProceso
-            // 
-            this.btnEliminarProceso.BackColor = System.Drawing.Color.Red;
-            this.btnEliminarProceso.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarProceso.Location = new System.Drawing.Point(233, 608);
-            this.btnEliminarProceso.Name = "btnEliminarProceso";
-            this.btnEliminarProceso.Size = new System.Drawing.Size(111, 31);
-            this.btnEliminarProceso.TabIndex = 16;
-            this.btnEliminarProceso.Text = "Eliminar";
-            this.btnEliminarProceso.UseVisualStyleBackColor = false;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -224,7 +212,6 @@
             this.txtQuantum.Name = "txtQuantum";
             this.txtQuantum.Size = new System.Drawing.Size(153, 28);
             this.txtQuantum.TabIndex = 22;
-            this.txtQuantum.Text = "5";
             this.txtQuantum.UseWaitCursor = true;
             this.txtQuantum.TextChanged += new System.EventHandler(this.txtQuantum_TextChanged);
             // 
@@ -264,7 +251,7 @@
             this.dgvListadoEjecucion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListadoEjecucion.Location = new System.Drawing.Point(638, 236);
             this.dgvListadoEjecucion.Name = "dgvListadoEjecucion";
-            this.dgvListadoEjecucion.Size = new System.Drawing.Size(556, 345);
+            this.dgvListadoEjecucion.Size = new System.Drawing.Size(540, 345);
             this.dgvListadoEjecucion.TabIndex = 26;
             this.dgvListadoEjecucion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -280,7 +267,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtQuantum);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.btnEliminarProceso);
             this.Controls.Add(this.btnEjecutarProcesos);
             this.Controls.Add(this.Priority);
             this.Controls.Add(this.CPUTime);
@@ -324,7 +310,6 @@
         private System.Windows.Forms.TextBox Priority;
         private System.Windows.Forms.Button btnEjecutarProcesos;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Button btnEliminarProceso;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtQuantum;
         private System.Windows.Forms.ComboBox txtAlgoritmoSelect;
