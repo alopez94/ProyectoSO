@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LogoCeu = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -38,20 +37,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.LogoCeu = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.LogoCeu)).BeginInit();
             this.SuspendLayout();
-            // 
-            // LogoCeu
-            // 
-            this.LogoCeu.BackColor = System.Drawing.Color.White;
-            this.LogoCeu.Image = global::ProjectSO.Properties.Resources.LOGOS_UNITEC_Y_CEUTEC_04;
-            this.LogoCeu.InitialImage = global::ProjectSO.Properties.Resources.LOGOS_UNITEC_Y_CEUTEC_04;
-            this.LogoCeu.Location = new System.Drawing.Point(512, 605);
-            this.LogoCeu.Name = "LogoCeu";
-            this.LogoCeu.Size = new System.Drawing.Size(109, 50);
-            this.LogoCeu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LogoCeu.TabIndex = 7;
-            this.LogoCeu.TabStop = false;
             // 
             // label8
             // 
@@ -80,7 +68,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(221, 23);
             this.button1.TabIndex = 11;
-            this.button1.Text = "Procesos";
+            this.button1.Text = "Configuracion CPU";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -100,17 +88,19 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(221, 23);
             this.button2.TabIndex = 13;
-            this.button2.Text = "MMU";
+            this.button2.Text = "Configuracion MMU";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(202, 304);
+            this.button3.Location = new System.Drawing.Point(202, 308);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(221, 23);
             this.button3.TabIndex = 14;
             this.button3.Text = "Definicion Lista Ejecucion";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -118,8 +108,9 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(221, 23);
             this.button4.TabIndex = 15;
-            this.button4.Text = "Emulaciond Task Manager";
+            this.button4.Text = "Emulacion Task Manager";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -139,6 +130,18 @@
             this.label3.Size = new System.Drawing.Size(175, 31);
             this.label3.TabIndex = 17;
             this.label3.Text = "Task Manager";
+            // 
+            // LogoCeu
+            // 
+            this.LogoCeu.BackColor = System.Drawing.Color.White;
+            this.LogoCeu.Image = global::ProjectSO.Properties.Resources.LOGOS_UNITEC_Y_CEUTEC_04;
+            this.LogoCeu.InitialImage = global::ProjectSO.Properties.Resources.LOGOS_UNITEC_Y_CEUTEC_04;
+            this.LogoCeu.Location = new System.Drawing.Point(512, 605);
+            this.LogoCeu.Name = "LogoCeu";
+            this.LogoCeu.Size = new System.Drawing.Size(109, 50);
+            this.LogoCeu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LogoCeu.TabIndex = 7;
+            this.LogoCeu.TabStop = false;
             // 
             // MenuPrincipal
             // 

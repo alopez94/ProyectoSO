@@ -46,25 +46,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigCPU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigCPU.Designer.cs">
+      <DependentUpon>ConfigCPU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMMU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMMU.Designer.cs">
+      <DependentUpon>ConfigMMU.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inicio.cs">
+    <Compile Include="EmulacionTM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Inicio.Designer.cs">
-      <DependentUpon>Inicio.cs</DependentUpon>
+    <Compile Include="EmulacionTM.Designer.cs">
+      <DependentUpon>EmulacionTM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="procesoslista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="procesoslista.Designer.cs">
+      <DependentUpon>procesoslista.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Inicio.resx">
-      <DependentUpon>Inicio.cs</DependentUpon>
+    <EmbeddedResource Include="ConfigCPU.resx">
+      <DependentUpon>ConfigCPU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMMU.resx">
+      <DependentUpon>ConfigMMU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmulacionTM.resx">
+      <DependentUpon>EmulacionTM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="procesoslista.resx">
+      <DependentUpon>procesoslista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

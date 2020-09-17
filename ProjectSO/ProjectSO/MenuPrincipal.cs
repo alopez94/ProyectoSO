@@ -17,6 +17,8 @@ namespace ProjectSO
             InitializeComponent();
         }
 
+      
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -24,9 +26,28 @@ namespace ProjectSO
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (VentanaAProcesos ventanaProcess = new VentanaAProcesos())
-                ventanaProcess.ShowDialog();
-            
+            ConfigCPU cpucon = new ConfigCPU();
+            cpucon.Show();
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            VentanaAProcesos taskmanager = new VentanaAProcesos();
+            taskmanager.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ConfigMMU mmuconfi = new ConfigMMU();
+            mmuconfi.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            procesoslista processlist = new procesoslista();
+            processlist.Show();
         }
     }
 }
