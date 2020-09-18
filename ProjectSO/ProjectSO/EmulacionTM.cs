@@ -72,7 +72,7 @@ namespace ProjectSO
             }
         }
 
-        public BindingSource bindingsrs2 = new BindingSource(); //https://www.codeproject.com/Questions/734276/how-to-add-data-dynamically-to-Gridview
+        public static BindingSource bindingsrs2 = new BindingSource(); //https://www.codeproject.com/Questions/734276/how-to-add-data-dynamically-to-Gridview
         public List<process> ProcesosLista1 = new List<process>();
            
         List<process> Active = new List<process>();
@@ -89,7 +89,7 @@ namespace ProjectSO
         {
             
             dgvListadoEjecucion.DataSource = bindingsrs2;
-            btnEjecutarProcesos.Enabled = false;
+            
 
             ProcesosLista1 = procesoslista.ProcesosListaTransferir;
            

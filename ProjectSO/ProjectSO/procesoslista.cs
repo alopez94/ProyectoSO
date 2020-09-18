@@ -35,6 +35,7 @@ namespace ProjectSO
         Convert.ToInt32(CPUTime.Text));
         
         bindingsrs.Add(lista1);
+        VentanaAProcesos.bindingsrs2.Add(lista1);
         ProcesosListaInicial.Add(lista1);
         
 
@@ -121,6 +122,7 @@ namespace ProjectSO
         private void button1_Click(object sender, EventArgs e)
         {
             ProcesosListaTransferir = ProcesosListaInicial;
+            
             Close();
         }
     }
