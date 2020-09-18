@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ProjectSO",
+    "\\ProjectSO\\ProjectSO"
   ],
+  "SelectedNode": "\\ProjectSO\\ProjectSO\\ConfigCPU.Designer.cs",
   "PreviewInSolutionExplorer": false
 }

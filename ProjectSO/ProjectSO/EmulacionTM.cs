@@ -73,7 +73,8 @@ namespace ProjectSO
         }
 
         public BindingSource bindingsrs2 = new BindingSource(); //https://www.codeproject.com/Questions/734276/how-to-add-data-dynamically-to-Gridview
-        List<process> ProcesosLista1 = new List<process>();
+        public List<process> ProcesosLista1 = new List<process>();
+           
         List<process> Active = new List<process>();
         List<process> samepriority = new List<process>();
         List<process> sameCPUTime = new List<process>();
@@ -83,11 +84,14 @@ namespace ProjectSO
         public int tiempoCPUTotalProcesos = 1;
 
 
+
         private void Inicio_Load(object sender, EventArgs e)
         {
             
             dgvListadoEjecucion.DataSource = bindingsrs2;
             btnEjecutarProcesos.Enabled = false;
+
+            ProcesosLista1 = procesoslista.ProcesosListaTransferir;
            
     
         }

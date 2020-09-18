@@ -13,53 +13,14 @@ namespace ProjectSO
     
     public partial class procesoslista : Form
     {
-                            public class process
-                        {
-                            public string nombreProcesolst
-                            {
-                                get; set;
 
-                            }
-
-                            public int arrivetlst
-                            {
-                                get; set;
-                            }
-
-                            public int CPUtlst
-                            {
-                                get; set;
-                            }
-
-                            public int prioritylst
-                            {
-                                get; set;
-                            }
-
-                            public string estadolst
-                            {
-                                get; set;
-                            }
-
-                            public int remainingTlst
-                            {
-                                get; set;
-                            }
-                            public process(string name2, int arrivet2, int CPUtime2, int priority2, string state2, int remainingTime2)
-                            {
-
-                                nombreProcesolst = name2;
-                                arrivetlst = arrivet2;
-                                CPUtlst = CPUtime2;
-                                prioritylst = priority2;
-                                estadolst = state2;
-                                remainingTlst = remainingTime2;
-                            }
-                        }
-
+        public static string gblNombreProceso;
+        VentanaAProcesos init = new VentanaAProcesos();
+        
+        public static List<VentanaAProcesos.process> ProcesosListaTransferir;
 
         public BindingSource bindingsrs = new BindingSource();
-        List<process> ProcesosListaInicial = new List<process>();
+        public List<VentanaAProcesos.process> ProcesosListaInicial = new List<VentanaAProcesos.process>();
 
         private void procesoslista_Load(object sender, EventArgs e)
         {
@@ -69,11 +30,13 @@ namespace ProjectSO
 
         public void agregarProcesoLista()
     {
-        process lista1 = new process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
+         
+            VentanaAProcesos.process lista1 = new VentanaAProcesos.process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
         Convert.ToInt32(CPUTime.Text));
+        
         bindingsrs.Add(lista1);
         ProcesosListaInicial.Add(lista1);
-
+        
 
         ProcessName.Clear();
         ArriveTime.Clear();
@@ -155,6 +118,10 @@ namespace ProjectSO
 
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ProcesosListaTransferir = ProcesosListaInicial;
+            Close();
+        }
     }
 }
