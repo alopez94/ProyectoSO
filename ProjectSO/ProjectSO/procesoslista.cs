@@ -24,7 +24,13 @@ namespace ProjectSO
 
         private void procesoslista_Load(object sender, EventArgs e)
         {
+            Console.WriteLine(ProcesosListaInicial.Count);
+            if(ProcesosListaInicial.Count < 1) { 
             dgvListadoProcesos1.DataSource = bindingsrs;
+            }
+            else { 
+            dgvListadoProcesos1.DataSource = ProcesosListaInicial;
+            }
         }
 
 

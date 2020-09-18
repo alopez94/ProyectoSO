@@ -89,8 +89,6 @@ namespace ProjectSO
         {
             
             dgvListadoEjecucion.DataSource = bindingsrs2;
-            
-
             ProcesosLista1 = procesoslista.ProcesosListaTransferir;
            
     
@@ -272,20 +270,28 @@ namespace ProjectSO
                                             Active[index].remainingT = Active[index].remainingT - CPUQuantumTime1;
                                         }
 
-                                        if (Active[index].remainingT == 0)
+                                        if ((Active[index].remainingT > 0))
+                                        {
+                                            Active[index].estado = "Proceso";
+                                        }
+                                        if ((Active[index].remainingT == 0))
                                         {
                                             Active[index].estado = "Finalizado";
                                         }
-                                        else
-                                        {
-                                            Active[index].estado = "Bloqueado";
-                                        }
 
-                                      
 
-                                       pasaryActualizar(Active[index]);
+
+                        pasaryActualizar(Active[index]);
                                         tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
-                                       
+
+                        
+                        ListViewItem listViewItem = new ListViewItem("Proceso: ");
+                        listViewItem.SubItems.Add(Active[index].nombreProceso);
+                        listViewItem.SubItems.Add(Active[index].estado);
+                        listViewItem.SubItems.Add(Convert.ToString(Active[index].remainingT));
+                        ViewDetalleProceso.Items.Add(listViewItem);
+
+
                         wait(3000);
 
                         
@@ -347,14 +353,25 @@ namespace ProjectSO
                                     {
                                         Active[index].estado = "Finalizado";
                                     }
-                                    else
+                                    if((Active[index].remainingT > 0))
                                     {
-                                        Active[index].estado = "Bloqueado";
+                                        Active[index].estado = "Proceso";
+                                    }
+                                    if ((Active[index].remainingT == 0))
+                                    {
+                                        Active[index].estado = "Finalizado";
                                     }
 
-                                    pasaryActualizar(Active[index]);
+                        pasaryActualizar(Active[index]);
                                     tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
                                     wait(3000);
+
+                        ListViewItem listViewItem = new ListViewItem("Proceso: ");
+                        listViewItem.SubItems.Add(Active[index].nombreProceso);
+                        listViewItem.SubItems.Add(Active[index].estado);
+                        listViewItem.SubItems.Add(Convert.ToString(Active[index].remainingT));
+                        ViewDetalleProceso.Items.Add(listViewItem);
+
                     });
 
                     Active.ForEach(proc =>
@@ -375,6 +392,21 @@ namespace ProjectSO
 
                 }
             }
+        }
+
+        private void restart(process a)
+        {
+            a.remainingT = a.CPUt;
+            a.estado = "Listo";
+
+        }
+
+        private void reiniciarlista()
+        {
+            ProcesosLista1.ForEach(proc =>
+            {
+                restart(proc);
+            });
         }
 
         private void pasaryActualizar(process a)
@@ -445,6 +477,21 @@ namespace ProjectSO
 
         private void label1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            //dgvListadoEjecucion.DataSource = null; //eliminando la data
+            
+            reiniciarlista();
+            dgvListadoEjecucion.Refresh();
+            ViewDetalleProceso.Clear();
 
         }
     }
