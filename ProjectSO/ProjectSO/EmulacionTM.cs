@@ -73,13 +73,19 @@ namespace ProjectSO
         }
 
         public static BindingSource bindingsrs2 = new BindingSource(); //https://www.codeproject.com/Questions/734276/how-to-add-data-dynamically-to-Gridview
+
+        public BindingSource bindingsrs3 = new BindingSource();
+
         public List<process> ProcesosLista1 = new List<process>();
-           
+        public List<process> processMMU = new List<process>();
+
+
         List<process> Active = new List<process>();
         List<process> samepriority = new List<process>();
         List<process> sameCPUTime = new List<process>();
         public int prioridadActual;
         public int TiempoCPUActual;
+        public int fallosMMU = 0;
         
         public int tiempoCPUTotalProcesos = 1;
 
@@ -90,8 +96,9 @@ namespace ProjectSO
             
             dgvListadoEjecucion.DataSource = bindingsrs2;
             ProcesosLista1 = procesoslista.ProcesosListaTransferir;
-           
-    
+            GridDisplayMMU();
+
+
         }
 
         
@@ -225,9 +232,6 @@ namespace ProjectSO
         }
 
 
-
-       
-
         private void execute()
         {
            
@@ -247,7 +251,7 @@ namespace ProjectSO
 
                     Active.ForEach(process =>
                     {
-                        Console.Write("Llego Hasta aqui xD");
+                        
 
                        
                        
@@ -320,21 +324,46 @@ namespace ProjectSO
             if (AlgoritmoCPUconfig == "CPU")
             {
                 Active = ProcesosLista1.FindAll(ActivosAun);
+                int PositionMMUlista = 0;
 
                 while (tiempoCPUTotalProcesos > 0)
                 {
+                    
                     Active = ProcesosLista1.FindAll(ActivosAun);
 
                     Active.ForEach(process =>
                     {
                         index = CPUTimemasbajo();
                         TiempoCPUActual = Active[index].CPUt;
+                        
+                        //ProcesoMMU---------------------
+                        processMMU[0] = Active[index];
+                        PositionMMUlista++;
+
+                        if (processMMU.Count > 1) { 
+                        for(int i=0; i < processMMU.Count; i++)
+                        {
+                            if(processMMU[i].nombreProceso == Active[index].nombreProceso){
+                                    fallosMMU++;
+                                    processMMU[i] = null;
+                            }
+                        }
+                        }
+
+                        Console.WriteLine(processMMU[PositionMMUlista]);
+                       // Console.WriteLine(Active[index].nombreProceso);
+
+
+                        //------------------------------------
+
                         sameCPUTime = Active.FindAll(CPUTimeigual);
 
                         if(sameCPUTime.Count > 0)
                         {
                             index = PrioridadMasAlta();
                         }
+
+                       
 
                                      if (Active[index].remainingT < CPUQuantumTime1)
                                     {
@@ -425,13 +454,6 @@ namespace ProjectSO
 
         }
 
-
-
-
-
-
-
-
         private void btnEjecutarProcesos_Click(object sender, EventArgs e)
         {
             execute();
@@ -492,6 +514,37 @@ namespace ProjectSO
             reiniciarlista();
             dgvListadoEjecucion.Refresh();
             ViewDetalleProceso.Clear();
+
+        }
+
+
+        //MMU ----------------------------------------------------------------------------------------
+
+        private void GridDisplayMMU()
+        {
+            if (ProcesosLista1.Count > 0 || ProcesosLista1 != null)
+            {
+                dgvMMUDisplay.ColumnCount = ProcesosLista1.Count;
+
+                for (int i = 0; i < ProcesosLista1.Count; i++)
+                {
+               
+                    dgvMMUDisplay.Columns[i].Name = ProcesosLista1[i].nombreProceso;
+                }
+
+
+                for (int i = 0; i < (paginadoMMU - 1); i++)
+                {
+                    dgvMMUDisplay.Rows.Add(Convert.ToString(""));
+                }
+                foreach (DataGridViewRow row in dgvMMUDisplay.Rows)
+                {
+                    row.HeaderCell.Value = (row.Index).ToString();
+                }
+
+               // dgvMMUDisplay.Rows[1].Cells[2].Value = "A";
+
+            }
 
         }
     }

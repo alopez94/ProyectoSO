@@ -39,8 +39,10 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnReloadLista = new System.Windows.Forms.Button();
+            this.dgvMMUDisplay = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListadoEjecucion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMMUDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -112,7 +114,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Tiempo Restante";
-            this.columnHeader4.Width = 76;
+            this.columnHeader4.Width = 93;
             // 
             // btnReloadLista
             // 
@@ -124,12 +126,21 @@
             this.btnReloadLista.UseVisualStyleBackColor = true;
             this.btnReloadLista.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // dgvMMUDisplay
+            // 
+            this.dgvMMUDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMMUDisplay.Location = new System.Drawing.Point(61, 362);
+            this.dgvMMUDisplay.Name = "dgvMMUDisplay";
+            this.dgvMMUDisplay.Size = new System.Drawing.Size(545, 194);
+            this.dgvMMUDisplay.TabIndex = 29;
+            // 
             // VentanaAProcesos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1206, 663);
+            this.Controls.Add(this.dgvMMUDisplay);
             this.Controls.Add(this.btnReloadLista);
             this.Controls.Add(this.ViewDetalleProceso);
             this.Controls.Add(this.dgvListadoEjecucion);
@@ -143,6 +154,7 @@
             this.Load += new System.EventHandler(this.Inicio_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListadoEjecucion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMMUDisplay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,6 +173,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button btnReloadLista;
+        private System.Windows.Forms.DataGridView dgvMMUDisplay;
     }
 }
 

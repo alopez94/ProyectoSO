@@ -74,17 +74,7 @@
             "7",
             "8",
             "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20"});
+            "10"});
             this.txtPaginasMMU.Location = new System.Drawing.Point(201, 109);
             this.txtPaginasMMU.Name = "txtPaginasMMU";
             this.txtPaginasMMU.Size = new System.Drawing.Size(121, 21);

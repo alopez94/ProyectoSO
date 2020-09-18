@@ -25,6 +25,7 @@ namespace ProjectSO
         private void procesoslista_Load(object sender, EventArgs e)
         {
             Console.WriteLine(ProcesosListaInicial.Count);
+           
             if(ProcesosListaInicial.Count < 1) { 
             dgvListadoProcesos1.DataSource = bindingsrs;
             }
@@ -37,7 +38,7 @@ namespace ProjectSO
         public void agregarProcesoLista()
     {
          
-            VentanaAProcesos.process lista1 = new VentanaAProcesos.process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
+       VentanaAProcesos.process lista1 = new VentanaAProcesos.process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
         Convert.ToInt32(CPUTime.Text));
         
         bindingsrs.Add(lista1);
