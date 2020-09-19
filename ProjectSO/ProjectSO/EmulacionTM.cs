@@ -74,34 +74,47 @@ namespace ProjectSO
 
         public static BindingSource bindingsrs2 = new BindingSource(); //https://www.codeproject.com/Questions/734276/how-to-add-data-dynamically-to-Gridview
 
-        public BindingSource bindingsrs3 = new BindingSource();
+        public static BindingSource bindingsrs3 = new BindingSource();
 
         public List<process> ProcesosLista1 = new List<process>();
         public List<process> processMMU = new List<process>();
-
+        public List<process> ActiveprocessMMU = new List<process>();
 
         List<process> Active = new List<process>();
         List<process> samepriority = new List<process>();
         List<process> sameCPUTime = new List<process>();
+
+        Queue<process> lista1 = new Queue<process>();
+
         public int prioridadActual;
         public int TiempoCPUActual;
         public int fallosMMU = 0;
-        
+        string mandaraListviewMMU;
+
         public int tiempoCPUTotalProcesos = 1;
 
 
 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            
+
             dgvListadoEjecucion.DataSource = bindingsrs2;
             ProcesosLista1 = procesoslista.ProcesosListaTransferir;
-            GridDisplayMMU();
-
+            dgvMMUDisplay.DataSource = bindingsrs3;
+            setTextosdetalles();
 
         }
 
-        
+        private void addprocessforMMU(process a)
+        {
+            if (a.estado == "Listo" || a.estado == "Procesando")
+            {
+                processMMU.Add(a);
+            }
+
+        }
+
+
         //funciones de condicion para evaluar estados
         private bool priorityigual(process a)
         {
@@ -172,7 +185,7 @@ namespace ProjectSO
 
             Active.ForEach(x =>
             {
-                if(x.CPUt< CPUTimeAlta && x.estado == "Listo")
+                if (x.CPUt < CPUTimeAlta && x.estado == "Listo")
                 {
                     ProcesoActual = x.nombreProceso;
                     CPUTimeAlta = x.CPUt;
@@ -219,13 +232,13 @@ namespace ProjectSO
                 a.estado = "Listo";
 
 
-             });
+            });
 
             Active = ProcesosLista1.FindAll(ActivosAun);
 
             Active.ForEach(x =>
             {
-               bindingsrs2.Add(x);
+                bindingsrs2.Add(x);
 
             });
 
@@ -234,7 +247,7 @@ namespace ProjectSO
 
         private void execute()
         {
-           
+
             int index = 0;
 
             Active = ProcesosLista1.FindAll(ActivosAun);
@@ -245,60 +258,62 @@ namespace ProjectSO
                 while (tiempoCPUTotalProcesos > 0)
                 {
 
-
-
                     Active = ProcesosLista1.FindAll(ActivosAun);
 
                     Active.ForEach(process =>
                     {
                         
 
-                       
-                       
                         index = PrioridadMasAlta();
                         prioridadActual = Active[index].priority;
+
+                        aquivatodo(ProcesosLista1, index, Active[index]); //MMU
+
                         samepriority = Active.FindAll(priorityigual);
 
                         if (samepriority.Count > 1)
                         {
                             index = llegada();
                         }
-                        
 
-                                        if (Active[index].remainingT <= CPUQuantumTime1)
-                                        {
-                                            Active[index].remainingT = 0;
-                                        }
-                                        else
-                                        {
-                                            Active[index].remainingT = Active[index].remainingT - CPUQuantumTime1;
-                                        }
 
-                                        if ((Active[index].remainingT > 0))
-                                        {
-                                            Active[index].estado = "Proceso";
-                                        }
-                                        if ((Active[index].remainingT == 0))
-                                        {
-                                            Active[index].estado = "Finalizado";
-                                        }
+                        if (Active[index].remainingT <= CPUQuantumTime1)
+                        {
+                            Active[index].remainingT = 0;
+                        }
+                        else
+                        {
+                            Active[index].remainingT = Active[index].remainingT - CPUQuantumTime1;
+                        }
+
+                        if ((Active[index].remainingT > 0))
+                        {
+                            Active[index].estado = "Bloqueado";
+                        }
+                        if ((Active[index].remainingT == 0))
+                        {
+                            Active[index].estado = "Finalizado";
+                        }
 
 
 
                         pasaryActualizar(Active[index]);
-                                        tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
+                        pasaryActualizarMMUGrid(Active[index]);
+                        tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
 
-                        
-                        ListViewItem listViewItem = new ListViewItem("Proceso: ");
+
+                        ListViewItem listViewItem = new ListViewItem("Procesando: ");
                         listViewItem.SubItems.Add(Active[index].nombreProceso);
                         listViewItem.SubItems.Add(Active[index].estado);
                         listViewItem.SubItems.Add(Convert.ToString(Active[index].remainingT));
                         ViewDetalleProceso.Items.Add(listViewItem);
 
-
-                        wait(3000);
-
                         
+
+
+                        wait(2000);
+
+
                     });
 
 
@@ -313,7 +328,7 @@ namespace ProjectSO
                         {
                             proc.estado = "Listo";
                             pasaryActualizar(proc);
-                            wait(3000);
+                            wait(2000);
                         }
                     });
                 }
@@ -321,79 +336,60 @@ namespace ProjectSO
 
             }
 
-            if (AlgoritmoCPUconfig == "CPU")
+            if (AlgoritmoCPUconfig == "CPU" || AlgoritmoCPUconfig== "Mixto")
             {
                 Active = ProcesosLista1.FindAll(ActivosAun);
-                int PositionMMUlista = 0;
+
 
                 while (tiempoCPUTotalProcesos > 0)
                 {
-                    
+
                     Active = ProcesosLista1.FindAll(ActivosAun);
+
 
                     Active.ForEach(process =>
                     {
                         index = CPUTimemasbajo();
                         TiempoCPUActual = Active[index].CPUt;
-                        
-                        //ProcesoMMU---------------------
-                        processMMU[0] = Active[index];
-                        PositionMMUlista++;
-
-                        if (processMMU.Count > 1) { 
-                        for(int i=0; i < processMMU.Count; i++)
-                        {
-                            if(processMMU[i].nombreProceso == Active[index].nombreProceso){
-                                    fallosMMU++;
-                                    processMMU[i] = null;
-                            }
-                        }
-                        }
-
-                        Console.WriteLine(processMMU[PositionMMUlista]);
-                       // Console.WriteLine(Active[index].nombreProceso);
-
-
-                        //------------------------------------
+                     
+                        aquivatodo(ProcesosLista1, index, Active[index]); //MMU
 
                         sameCPUTime = Active.FindAll(CPUTimeigual);
 
-                        if(sameCPUTime.Count > 0)
+                        if (sameCPUTime.Count > 0)
                         {
                             index = PrioridadMasAlta();
                         }
 
-                       
 
-                                     if (Active[index].remainingT < CPUQuantumTime1)
-                                    {
 
-                                        Active[index].remainingT = 0;
+                        if (Active[index].remainingT < CPUQuantumTime1)
+                        {
 
-                                    }
-                                    else
-                                    {
+                            Active[index].remainingT = 0;
 
-                                        Active[index].remainingT = Active[index].remainingT - CPUQuantumTime1;
+                        }
+                        else
+                        {
 
-                                    }
+                            Active[index].remainingT = Active[index].remainingT - CPUQuantumTime1;
 
-                                    if (Active[index].remainingT == 0)
-                                    {
-                                        Active[index].estado = "Finalizado";
-                                    }
-                                    if((Active[index].remainingT > 0))
-                                    {
-                                        Active[index].estado = "Proceso";
-                                    }
-                                    if ((Active[index].remainingT == 0))
-                                    {
-                                        Active[index].estado = "Finalizado";
-                                    }
+                        }
+
+                        if (Active[index].remainingT == 0)
+                        {
+                            Active[index].estado = "Finalizado";
+                        }
+                        if ((Active[index].remainingT > 0))
+                        {
+                            Active[index].estado = "Bloqueado";
+                        }
+
 
                         pasaryActualizar(Active[index]);
-                                    tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
-                                    wait(3000);
+                        pasaryActualizarMMUGrid(Active[index]);
+                        tiempoCPUTotalProcesos = Active.Sum(proc => proc.remainingT);
+                        wait(2000);
 
                         ListViewItem listViewItem = new ListViewItem("Proceso: ");
                         listViewItem.SubItems.Add(Active[index].nombreProceso);
@@ -402,6 +398,8 @@ namespace ProjectSO
                         ViewDetalleProceso.Items.Add(listViewItem);
 
                     });
+
+
 
                     Active.ForEach(proc =>
                     {
@@ -414,7 +412,7 @@ namespace ProjectSO
                         {
                             proc.estado = "Listo";
                             pasaryActualizar(proc);
-                            wait(3000);
+                            wait(2000);
                         }
                     });
 
@@ -430,12 +428,83 @@ namespace ProjectSO
 
         }
 
+        private void aquivatodo(List<process> a, int index, process b)
+        {
+
+            //lista a tiene que ser la lista de procesos activos de MMU
+            if (algoritmoMMU == "FIFO")
+            {
+                if (lista1.Count <= paginadoMMU)
+                {
+
+
+
+
+                    Console.WriteLine("agrego en seccion 1");
+                    Console.WriteLine("elementos en lista =>" + a.Count);
+                    Console.WriteLine("en el queue: " + lista1.Count);
+
+                    if (lista1.Contains(b))
+                    {
+                        fallosMMU = fallosMMU + 1;
+                        lista1.Enqueue(b);
+
+                        Console.WriteLine("Fallos " + fallosMMU);
+
+                    }
+                    else
+                    {
+                        lista1.Enqueue(b);
+                        Console.WriteLine("Agregado sin Fallo");
+                    }
+
+                    mandaraListviewMMU = "Elementos en Queue =>" + lista1.Count + " Proceso => " + b.nombreProceso + ". Fallos => " + fallosMMU;
+                    lvDetallesMMU.Items.Add(mandaraListviewMMU);
+                }
+
+                else
+                {
+                    if (lista1.Count > 0)
+                    {
+                        lista1.Dequeue();
+                    }
+                    Console.WriteLine("agrego en seccion 2");
+
+                    Console.WriteLine("elementos en lista =>" + a.Count);
+                    Console.WriteLine("en el queue: " + lista1.Count);
+
+                    if (lista1.Contains(b))
+                    {
+                        fallosMMU = fallosMMU + 1;
+                        lista1.Enqueue(b);
+
+                        Console.WriteLine("Fallos " + fallosMMU);
+
+                    }
+                    else
+                    {
+                        lista1.Enqueue(b);
+                        Console.WriteLine("Agregado sin Fallo");
+                    }
+
+                    mandaraListviewMMU = "Elementos en Queue =>" + lista1.Count + " Proceso => " + b.nombreProceso + ". Fallos => " + fallosMMU;
+                    lvDetallesMMU.Items.Add(mandaraListviewMMU);
+
+                }
+            }
+        }   
         private void reiniciarlista()
         {
             ProcesosLista1.ForEach(proc =>
             {
                 restart(proc);
             });
+
+            processMMU.ForEach(procM =>
+            {
+                restart(procM);
+            });
+
         }
 
         private void pasaryActualizar(process a)
@@ -451,6 +520,29 @@ namespace ProjectSO
             obj.remainingT = a.remainingT;
             obj.estado = a.estado;
             dgvListadoEjecucion.Refresh();
+
+        }
+
+        private void pasaryActualizarMMUGrid(process b)
+        {
+            int indice = -1;
+
+            DataGridViewRow filaMMU = dgvMMUDisplay.Rows
+                .Cast<DataGridViewRow>()
+                .Where(procmmu => procmmu.Cells["nombreProceso"].Value.ToString().Equals(b.nombreProceso))
+                .First();
+            indice = filaMMU.Index;
+            procesoslista.processforMMU objmmu = (procesoslista.processforMMU)dgvMMUDisplay.Rows[indice].DataBoundItem;
+            objmmu.estado = b.estado;
+            if(b.estado == "Finalizado") { 
+                objmmu.MMUalocation = "";
+            }
+            else
+            {
+                objmmu.MMUalocation = "Memory " + indice.ToString();
+            }
+            
+            dgvMMUDisplay.Refresh();
 
         }
 
@@ -513,40 +605,27 @@ namespace ProjectSO
             
             reiniciarlista();
             dgvListadoEjecucion.Refresh();
+         
+            dgvMMUDisplay.Refresh();
             ViewDetalleProceso.Clear();
 
         }
 
 
-        //MMU ----------------------------------------------------------------------------------------
-
-        private void GridDisplayMMU()
+        private void setTextosdetalles()
         {
-            if (ProcesosLista1.Count > 0 || ProcesosLista1 != null)
-            {
-                dgvMMUDisplay.ColumnCount = ProcesosLista1.Count;
+            DetalleQuantumCPU.Text = CPUQuantumTime1.ToString();
+            detalleAlgoritmoCPU.Text = AlgoritmoCPUconfig;
+            DetalleAlgoritmoMMU.Text = algoritmoMMU;
+            DetallePaginasMMU.Text = paginadoMMU.ToString();
 
-                for (int i = 0; i < ProcesosLista1.Count; i++)
-                {
-               
-                    dgvMMUDisplay.Columns[i].Name = ProcesosLista1[i].nombreProceso;
+
+
+
+
                 }
 
-
-                for (int i = 0; i < (paginadoMMU - 1); i++)
-                {
-                    dgvMMUDisplay.Rows.Add(Convert.ToString(""));
-                }
-                foreach (DataGridViewRow row in dgvMMUDisplay.Rows)
-                {
-                    row.HeaderCell.Value = (row.Index).ToString();
-                }
-
-               // dgvMMUDisplay.Rows[1].Cells[2].Value = "A";
-
-            }
-
-        }
+        
     }
 
 }

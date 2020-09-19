@@ -13,12 +13,44 @@ namespace ProjectSO
     
     public partial class procesoslista : Form
     {
+        public class processforMMU
+        {
+            public string nombreProceso
+            {
+                get; set;
 
+            }
+
+            public string estado
+            {
+                get; set;
+            }
+
+            public int CPUt
+            {
+                get; set;
+            }
+
+            public string MMUalocation
+            {
+                get; set;
+            }
+
+            public processforMMU(string name1, int CPUtime, string state, string aloc)
+            {
+                nombreProceso = name1;
+                CPUt = CPUtime;
+                estado = state;
+                MMUalocation = aloc;
+            }
+        }
+            
+        
         public static string gblNombreProceso;
         VentanaAProcesos init = new VentanaAProcesos();
         
         public static List<VentanaAProcesos.process> ProcesosListaTransferir;
-
+        
         public BindingSource bindingsrs = new BindingSource();
         public List<VentanaAProcesos.process> ProcesosListaInicial = new List<VentanaAProcesos.process>();
 
@@ -40,10 +72,17 @@ namespace ProjectSO
          
        VentanaAProcesos.process lista1 = new VentanaAProcesos.process(ProcessName.Text, Convert.ToInt32(ArriveTime.Text), Convert.ToInt32(CPUTime.Text), Convert.ToInt32(Priority.Text), "Listo",
         Convert.ToInt32(CPUTime.Text));
-        
+
+       processforMMU lista2 = new processforMMU(ProcessName.Text, Convert.ToInt32(CPUTime.Text), "Listo","0");
+            VentanaAProcesos.bindingsrs3.Add(lista2);
+
+
         bindingsrs.Add(lista1);
         VentanaAProcesos.bindingsrs2.Add(lista1);
-        ProcesosListaInicial.Add(lista1);
+           
+
+           
+            ProcesosListaInicial.Add(lista1);
         
 
         ProcessName.Clear();
